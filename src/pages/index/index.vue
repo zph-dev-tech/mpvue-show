@@ -1,13 +1,14 @@
 <template>
   <div class="home">
-
-    <van-button type="primary">按钮</van-button>
-    <test></test>
+    <!-- 搜索组件 -->
+ <SearchBar></SearchBar>
+    
+   
   </div>
 </template>
 
 <script>
-import test from '../../components/test.vue'
+import SearchBar from '../../components/SearchBar.vue'
 
 export default {
   data () {
@@ -17,7 +18,7 @@ export default {
   },
 
   components: {
-   test
+  SearchBar
   },
 
   methods: {

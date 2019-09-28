@@ -6,10 +6,12 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "蒙太奇影院",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {
-    "van-button": "vant-weapp/dist/button/index"
+    "van-button": "vant-weapp/dist/button/index",
+    "van-icon": "vant-weapp/dist/icon/index"
+    
   }
 }
