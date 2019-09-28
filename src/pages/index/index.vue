@@ -2,11 +2,12 @@
   <div class="home">
 
     <van-button type="primary">按钮</van-button>
+    <test></test>
   </div>
 </template>
 
 <script>
-
+import test from '../../components/test.vue'
 
 export default {
   data () {
@@ -16,7 +17,7 @@ export default {
   },
 
   components: {
-   
+   test
   },
 
   methods: {
