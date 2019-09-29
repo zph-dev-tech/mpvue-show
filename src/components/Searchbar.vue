@@ -7,18 +7,24 @@
       <!-- 搜索框数据 -->
       <input
         type="text"
+     
         :focus="focus"
         :disabled="disabled"
         :maxlength="limit"
-        :placeholder="hotSearch||''"
-        v-model="SearchWord"
+        :placeholder="keyword||''"
+        placeholder-style="color:#ADB4BE 100%"
         @input="onChange"
         confirm-type="search"
         @confirm="onConfirm"
-      />
+       v-model="SearchWord" />
 
       <div class="clear" @click="onClearClick">
-        <van-icon name="clear" size="14px" color="#7a7b7c" />
+        <van-icon 
+        name="clear" 
+        size="14px" 
+        color="#7a7b7c" 
+        v-if="SearchWord.length>0"
+        />
       </div>
     </div>
   </div>
@@ -26,10 +32,16 @@
 
 <script>
 export default {
+  computed: {
+    keyword(){
+      return this.hotSearch&&this.hotSearch.keyword
+    }
+  },
   props: {
+    // bug设置为false的话会随时失去焦点
     focus: {
       type: Boolean,
-      default: false
+      default: true
     },
     disabled: {
       type: Boolean,
@@ -46,34 +58,40 @@ export default {
   },
   data() {
     return {
-      SearchWord: ""
-    };
+      SearchWord:''
+    }
   },
   methods: {
-    // 搜索框点击事件
+    //  解决输入框光标bug
+    //handleSearchChange (e) {
+      //console.log(e.mp.detail.value);
+      
+       //this.SearchWord= e.mp.detail.value
+   // },
+    //搜索框点击事件
     onSearchBarClick() {
       this.$emit("onClick");
     },
-    // 点击清空时间
+    //点击清空时间
     onClearClick() {
       this.SearchWord = "";
       this.$emit("onClear");
     },
-    //  输入监听事件
+    // 输入监听事件
     onchange(e) {
       const { value } = e.mp.detail;
       this.$emit("onChange", value);
     },
-    // 点击虚拟键盘搜索事件
+    //点击虚拟键盘搜索事件
     onConfirm() {
       const { value } = e.mp.detail;
       this.$emit("onConfirm", value);
     },
-    // 获取输入框的值
+    //获取输入框的值
     getValue() {
       return this.SearchWord;
     },
-    // 给输入框赋值
+    //给输入框赋值
     setValue(v) {
       this.SearchWord = v;
     }
@@ -90,7 +108,7 @@ export default {
     padding-right: 18.1px;
     border-radius: 20px;
     background-color: #f5f7f9;
-    margin: 15px 15px 35px 15px;
+    margin: 15px 15px 0px 15px;
     display: flex;
     align-items: center;
     box-sizing: border-box;
