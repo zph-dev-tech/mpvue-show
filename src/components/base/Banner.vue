@@ -49,7 +49,6 @@ export default {
   box-sizing: border-box;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  border: 1px solid #000;
   font-size: 15px;
   color: #ffffff;
   padding: 30px 20px 30px 20px;
