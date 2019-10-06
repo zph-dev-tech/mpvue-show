@@ -1,18 +1,20 @@
 {
   "pages": [
-    "pages/index/main"
+    "pages/index/main",
+    "pages/bookDetail/main",
+    "pages/search/main"
    
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "蒙太奇影院",
+    "navigationBarTitleText": "文云书海",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {
     "van-button": "vant-weapp/dist/button/index",
     "van-icon": "vant-weapp/dist/icon/index",
-    "van-dialog": "vant-weapp/dist/dialog/index"
-    
+    "van-dialog": "vant-weapp/dist/dialog/index",
+    "van-rate": "vant-weapp/dist/rate/index"
   }
 }

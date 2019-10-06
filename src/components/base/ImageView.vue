@@ -15,7 +15,7 @@
              <img 
              :class="round ? 'round image':'image'"
             src="../../../static/loading.gif"
-            :mode="mode"
+            :mode="scaleToFill"
             :lazy-load="lazyLoad"
             :style="{height:height}"
             v-show="isLoading||error"
@@ -26,6 +26,16 @@
 
 <script>
     export default {
+        watch: {
+            src(newVal,oldVal){
+            if(newVal&&newVal.length>0&&newVal!=oldVal)
+            {
+                this.$nextTick(()=>{
+                    this.isLoading=true;
+                })
+            }
+            }
+        },
         props:{
             src:{
               type:String,
@@ -48,11 +58,7 @@
                 default:"auto"
             }
         },
-        watch: {
-            src:function(newVal,oldVal){
-
-            }
-        },
+        
         data(){
             return {
                 isLoading:true,

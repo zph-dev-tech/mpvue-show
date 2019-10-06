@@ -12,7 +12,7 @@
         :disabled="disabled"
         :maxlength="limit"
         :placeholder="keyword||''"
-        placeholder-style="color:#ADB4BE 100%"
+        placeholder-style="color:#ADB4BE"
         @input="onChange"
         confirm-type="search"
         @confirm="onConfirm"
@@ -33,9 +33,9 @@
 <script>
 export default {
   computed: {
-    keyword(){
-      return this.hotSearch&&this.hotSearch.keyword
-    }
+    // keyword(){
+    //   return this.hotSearch&&this.hotSearch.keyword
+    // }
   },
   props: {
     // bug设置为false的话会随时失去焦点
@@ -57,8 +57,10 @@ export default {
     }
   },
   data() {
+    
     return {
-      SearchWord:''
+      SearchWord:'',
+      keyword:'computer'
     }
   },
   methods: {
@@ -70,22 +72,29 @@ export default {
    // },
     //搜索框点击事件
     onSearchBarClick() {
-      this.$emit("onClick");
+      //console.log('s-s-b-c');
+      
+      this.$emit("onSearchBarClick");
     },
     //点击清空时间
     onClearClick() {
       this.SearchWord = "";
-      this.$emit("onClear");
+      this.$emit("onClearClick");
     },
     // 输入监听事件
-    onchange(e) {
+    onChange(e) {
       const { value } = e.mp.detail;
-      this.$emit("onChange", value);
+      console.log('S-B输入事件监听',value);
+      
+      this.$emit("oc",value);
     },
     //点击虚拟键盘搜索事件
-    onConfirm() {
+    onConfirm(e) {
       const { value } = e.mp.detail;
-      this.$emit("onConfirm", value);
+      console.log('确认。。。。',value);
+      this.$emit("onConfirm",value,this.keyword);
+      
+      
     },
     //获取输入框的值
     getValue() {
@@ -129,8 +138,11 @@ export default {
     }
     .clear {
       display: flex;
+      justify-content: center;
       align-items: center;
       height: 100%;
+      width: 40px;
+      //background-color: red;
     }
   }
 }

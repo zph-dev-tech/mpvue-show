@@ -3,15 +3,18 @@
     <div class="card-tab">
       <div class="homeCardInner">
         <div class="userAvatar">
-          <img src="../../../static/test/testAvatar.jpg" alt />
+          <img :src="avatarUrl" :mode='scaleToFill' alt />
         </div>
-        <div class="userName">武君君</div>
+        <div class="userName">{{nickName}}</div>
         <div class="CardInfo">推荐图书{{num}}本&nbsp;.&nbsp;特别精选</div>
       </div>
 
       <div class="homeCardShow">
-        <div class="book" v-for="(item,index) in bookList" :key="index">
-          <img :src="item.cover" />
+        <div class="book" v-for="(item,index) in bookList" :key="index" @click="onBookClick(item)">
+          <ImageView
+          :src="item.cover"
+          :height="'101px'"
+          ></ImageView>
         </div>
         <!-- <div class="book">
           <img src="https://img1.doubanio.com/view/subject/l/public/s29828719.jpg" />
@@ -32,8 +35,12 @@
 </template>
 
 <script>
+import ImageView from './ImageView.vue'
 import Dialog from "vant-weapp/dist/dialog/dialog";
 export default {
+  components:{
+    ImageView
+  },
     computed: {
         bookList(){
             return this.data&&this.data.bookList
@@ -41,7 +48,15 @@ export default {
         num(){
             return this.data&&this.data.num
         },
-       
+       userInfo(){
+         return this.data&&this.data.userInfo
+       },
+        nickName(){
+         return this.data&&this.data.userInfo&&this.data.userInfo.nickName
+       },
+        avatarUrl(){
+         return this.data&&this.data.userInfo&&this.data.userInfo.avatarUrl
+       }
     },
   props: {
     data: {
@@ -58,11 +73,18 @@ export default {
     }
   },
   methods: {
-      
+      // 测试
+      test(){
+        console.log(this.nickName,this.avatarUrl);
+      },
     //   跳转书架列表
     gotoShelf() {},
     //   点击图书
-    onBookClick() {},
+    onBookClick(item) {
+      
+      
+      this.$emit('onBookClick',item)
+    },
     //签到
     sign() {},
     //   反馈
