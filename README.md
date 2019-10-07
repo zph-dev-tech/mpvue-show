@@ -1,8 +1,10 @@
 # base
+
 ## 1.git clone
 ## 2.npm install
 ## 3.npm run dev 
 ## 4.使用微信小程序调试工具打开src/dist/wx文件夹即可浏览效果
+## 5.项目主要工具 mpvue+fly.io+vantweappUI+less+mpvue-router-patch
 
 
 

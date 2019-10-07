@@ -2,7 +2,7 @@
   <div class="user-info-wrapper">
     <div class="user-info">
       <div class="user-nick-name">{{userInfo.nickName}}</div>
-      <div class="user-read-time">您已经加入小慕读书{{readDay}}天</div>
+      <div class="user-read-time">您已经加入文云{{readDay}}天</div>
       <div class="user-avatar-wrapper">
         <img class="user-avatar" :src="userInfo.avatarUrl" mode="widthFix">
       </div>
