@@ -23,7 +23,7 @@
           <img src="https://img3.doubanio.com/view/subject/l/public/s1103152.jpg" />
         </div>-->
 
-        <div class="bookShelf">书架</div>
+        <div class="bookShelf" @click="onShelfClick">书架</div>
         <div class="more">
           <van-icon name="arrow" color="#7d7f84" size="9px" />
         </div>
@@ -78,7 +78,9 @@ export default {
         console.log(this.nickName,this.avatarUrl);
       },
     //   跳转书架列表
-    gotoShelf() {},
+   onShelfClick() {
+     this.$emit('onShelfClick')
+   },
     //   点击图书
     onBookClick(item) {
       

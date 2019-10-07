@@ -4,8 +4,8 @@
     <!-- 推荐 -->
     <div class="bookShow" v-if="mode=='row'">
       <div class="bookRow" v-for="(item,index) in bookData" :key="index">
-        <div class="bookWrap" v-for="(book,bookIndex) in item" :key="bookIndex">
-          <div class="book" @click="onBookClick">
+        <div class="bookWrap" v-for="(book,bookIndex) in item" :key="bookIndex" @click="onBookClick(book)">
+          <div class="book" >
             <ImageView :mode="scaleToFill" :src="book.cover" :height="'147px'"></ImageView>
           </div>
           <div class="bookName">{{book.title}}</div>
@@ -15,7 +15,7 @@
     <!-- 当前热门 -->
     <div class="bookShow" v-if="mode=='col'">
       <div class="bookRow-free" v-for="(item,index) in bookData" :key="index">
-        <div class="bookWrap-free" v-for="(book,bookIndex) in item" :key="bookIndex">
+        <div class="bookWrap-free" v-for="(book,bookIndex) in item" :key="bookIndex" @click="onBookClick(book)">
           <div class="book-free">
             <ImageView :mode="'scaleToFill'" :src="book.cover" :height="'88px'"></ImageView>
           </div>
@@ -32,7 +32,7 @@
     <!-- 当前最热 -->
     <div class="bookShow" v-if="mode=='hot'">
       <div class="bookRow-hot" v-for="(item,index) in bookData" :key="index">
-        <div class="bookWrap-hot" v-for="(book,bookIndex) in item" :key="bookIndex">
+        <div class="bookWrap-hot" v-for="(book,bookIndex) in item" :key="bookIndex" @click="onBookClick(book)">
           <div class="book-hot">
             <ImageView :mode="'scaleToFill'" :src="book.cover" :height="'99px'"></ImageView>
           </div>
@@ -43,19 +43,19 @@
     <!-- 分类 -->
     <div class="bookShow" v-if="mode=='category'">
       <div class="bookRow-category" v-for="(item,index) in bookData" :key="index">
-        <div class="bookWrap-category" v-for="(book,bookIndex) in item" :key="bookIndex">
+        <div class="bookWrap-category" v-for="(book,bookIndex) in item" :key="bookIndex" @click=onBookClick(book)>
           <div class="book-category">
             <ImageView :mode="'scaleToFill'" :src="book.cover" :height="'66px'"></ImageView>
           </div>
           <div class="bookInfo-category">
-            <div class="category-category">{{book.categoryText}}</div>
+            <div class="category-category">{{book.title}}</div>
             <div class="num">{{book.num}}本</div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="action" @click="onMoreClick">
+    <div class="action" @click="onMoreClick" v-if="showBtn">
       <van-button round custom-class="action-btn">{{btntext}}</van-button>
     </div>
   </div>
@@ -132,8 +132,8 @@ export default {
     onMoreClick() {
       this.$emit('onMoreClick')
     },
-    onBookClick() {
-      this.$emit('onBookClick')
+    onBookClick(book) {
+      this.$emit('onBookClick',book)
     }
   }
 };
@@ -262,6 +262,8 @@ export default {
       display: flex;
       justify-content: flex-start;
       .bookWrap-category {
+        box-sizing: border-box;
+        overflow: hidden;
         padding-left: 16px;
         padding-top: 13.5px;
         margin-right: 12px;
@@ -281,11 +283,17 @@ export default {
           right: 0;
         }
         .bookInfo-category {
+          max-width: 50%;
+          box-sizing: border-box;
+          overflow: hidden;
           .category-category {
+            box-sizing: border-box;
             font-size: 16px;
             color: #212832;
             margin-bottom: 29px;
-            word-wrap: break-word;
+            white-space: nowrap;
+            //text-overflow:ellipsis;
+             overflow: hidden;
           }
           .num {
             font-size: 12px;

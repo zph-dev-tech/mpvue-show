@@ -38,7 +38,11 @@
       v-if="publisher"
     ></category>
 
-    <bookList v-if="isShowList" :data="lists"></bookList>
+    <bookList 
+    v-if="isShowList" 
+    :data="lists"
+    @onBookClick="onBookClick"
+    ></bookList>
   </div>
 </template>
 
@@ -48,7 +52,7 @@ import SearchBar from "../../components/SearchBar.vue";
 import category from "../../components/seacrch/category.vue";
 import bookList from "../../components/seacrch/bookList.vue";
 
-import { searchKeyWord, getHotSearchWords } from "../../api/index.js";
+import { searchKeyWord, getHotSearchWords,getBookList } from "../../api/index.js";
 import { getStorageSync, setStorageSync } from "../../api/wechat.js";
 export default {
   computed: {
@@ -225,12 +229,41 @@ export default {
     //清空历史搜索
     clearHistory() {
       (this.historySearchWords = []), setStorageSync("historySearchWords", []);
-    }
+    },
 
     // unchange??
-    // categorySearch() {},
-    // authorSearch() {},
-    // publisherSearch() {}
+    categorySearch() {
+        this.$router.push({
+            path:'/pages/categoryBookList/main',
+            query:{
+                category:this.categoryText
+            }
+        })
+    },
+    authorSearch() {
+      this.$router.push({
+            path:'/pages/authorBookList/main',
+            query:{
+                author:this.author
+            }
+        })
+    },
+    publisherSearch() {
+      this.$router.push({
+            path:'/pages/publisherBookList/main',
+            query:{
+                publisher:this.publisher
+            }
+        })
+    },
+    // 点击图书详情
+    onBookClick(book){
+        console.log("book",book);
+        this.$router.push({
+          path:"/pages/bookDetail/main",
+          query:{fileName:book.fileName}
+        }) 
+    }
   },
   //   页面滚动时失去焦点否则会出问题
   onPageScroll() {

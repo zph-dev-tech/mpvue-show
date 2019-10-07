@@ -63,3 +63,20 @@ export function searchKeyWord(param){
 export function getHotSearchWords(){
     return get(`${baseUrl}/book/hot-search`)
 }
+
+// 获取图书列表
+export function getBookList(param){
+    return get(`${baseUrl}/book/search-list`,param)
+}
+// 获取分类列表
+export function getAllCategory(){
+    return get(`${baseUrl}/book/category/list/v2`)
+}
+// 获取书架列表
+export function getShelfList(openId){
+    return get(`${baseUrl}/book/shelf/get`,openId)
+}
+// 获取用户加入天数
+export function getJoinDays(openId){
+    return get(`${baseUrl}/user/day`,openId)
+}

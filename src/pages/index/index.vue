@@ -10,6 +10,7 @@
     <HomeCard
     :data='HomeCard'
     @onBookClick="onBookClick"
+    @onShelfClick="onShelfClick"
     ></HomeCard>
     <!-- 图片组件 -->
     <!-- <ImageView
@@ -60,7 +61,8 @@
 :mode="'category'"
 :title="'分类'"
 @onMoreClick="getMoreBook('category')"
-@onBookClick='getBook'
+@onBookClick='getCategory'
+:btntext="'查看全部分类'"
 ></recomend>
 
 <!--  登陆授权面板 -->
@@ -83,7 +85,7 @@ import Banner from '../../components/base/Banner.vue'
 import recomend from '../../components/recomend.vue'
 import auth from '../../components/base/auth.vue'
 // import {getData} from '../../api/index.js'
-import {getHomeData, getRecommend,getFreeRead,getHotBook} from '../../api/index.js'
+import {getHomeData, getRecommend,getFreeRead,getHotBook,getAllCategory} from '../../api/index.js'
 import {
   getSetting,
   getUserInfo,
@@ -296,42 +298,48 @@ export default {
             {
                 "cover":"https://www.youbaobao.xyz/book/res/img/Biomedicine/978-3-319-25474-6_CoverFigure.jpg",
                 "category":12,
-                "categoryText":"生物医学",
+                "title":"生物医学",
+                "categoryText":"Biomedicine",
                 "num":14,
                 "cover2":"https://www.youbaobao.xyz/book/res/img/Biomedicine/978-3-319-72790-5_CoverFigure.jpg"
             },
             {
                 "cover":"https://www.youbaobao.xyz/book/res/img/BusinessandManagement/978-3-319-33515-5_CoverFigure.jpg",
                 "category":13,
-                "categoryText":"工商管理",
+                "title":"工商管理",
+                "categoryText":"BusinessandManagement",
                 "num":16,
                 "cover2":"https://www.youbaobao.xyz/book/res/img/BusinessandManagement/978-3-319-95261-1_CoverFigure.jpg"
             },
             {
                 "cover":"https://www.youbaobao.xyz/book/res/img/ComputerScience/978-3-319-90415-3_CoverFigure.jpg",
                 "category":1,
-                "categoryText":"计算机科学",
+                "title":"计算机科学",
+                "categoryText":"ComputerScience",
                 "num":56,
                 "cover2":"https://www.youbaobao.xyz/book/res/img/ComputerScience/978-3-319-96142-2_CoverFigure.jpg"
             },
             {
                 "cover":"https://www.youbaobao.xyz/book/res/img/EarthSciences/978-981-10-3713-9_CoverFigure.jpg",
                 "category":14,
-                "categoryText":"地球科学",
+                "title":"地球科学",
+                "categoryText":"EarthSciences",
                 "num":16,
                 "cover2":"https://www.youbaobao.xyz/book/res/img/EarthSciences/978-3-319-65633-5_CoverFigure.jpg"
             },
             {
                 "cover":"https://www.youbaobao.xyz/book/res/img/Economics/978-3-319-69772-7_CoverFigure.jpg",
                 "category":3,
-                "categoryText":"经济学",
+                "title":"经济学",
+                 "categoryText":"Economics",
                 "num":30,
                 "cover2":"https://www.youbaobao.xyz/book/res/img/Economics/978-3-319-91400-8_CoverFigure.jpg"
             },
             {
                 "cover":"https://www.youbaobao.xyz/book/res/img/Education/978-3-319-39450-3_CoverFigure.jpg",
                 "category":4,
-                "categoryText":"教育学",
+                "title":"教育学",
+                "categoryText":"Education",
                 "num":60,
                 "cover2":"https://www.youbaobao.xyz/book/res/img/Education/978-3-319-52980-6_CoverFigure.jpg"
             },
@@ -586,16 +594,30 @@ export default {
           this.hotBookData=res.data.data;
         })
         break;
-        //  case 'category':
-        // getRecommend()
+         case 'category':
+        // getAllCategory()
         // .then(res=>{
         //   this.categoryData=res.data.data;
         // })
-        // break;
+        this.$router.push({
+          path:'/pages/categoryList/main'
+        })
+        break;
     
       default:
         break;
     }
+  },
+  // 获取推荐图书详情
+  getBook(book){
+    const openId=getStorageSync('openId')
+      this.$router.push({
+      path:'/pages/bookDetail/main',
+       query:{
+         openId,
+         fileName:book.fileName,
+       }
+    })
   },
   // 获取图书详情
   onBookClick(book){
@@ -608,10 +630,22 @@ export default {
        query:{
          openId,
          fileName:book.fileName,
-        //  this指向改变时要变this命名
-        // 按api要求转化为Json字符串
-        // book:book
        }
+    })
+  },
+  // 获取类型列表
+  getCategory(book){
+    this.$router.push({
+      path:"/pages/categoryBookList/main",
+      query:{
+        category:book.categoryText
+      }
+    })
+  },
+  // 跳转书架
+  onShelfClick(){
+    this.$router.push({
+      path:'/pages/shelf/main',
     })
   }
   

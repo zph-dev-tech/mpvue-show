@@ -2,7 +2,7 @@
   <div class="detail-info">
     <div class="detail-info-l">
       <div class="book-img">
-        <ImageView :src="book && book.cover"></ImageView>
+        <ImageView :src="book.cover" :height="'157px'"></ImageView>
       </div>
     </div>
     <div class="detail-info-r">
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import ImageView from '../base/ImageView'
+  import ImageView from '../base/ImageView.vue'
   export default {
     components: { ImageView },
     props: {

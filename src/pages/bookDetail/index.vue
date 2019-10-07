@@ -90,14 +90,12 @@ export default {
         console.log("存储状态", res.data.data.length);
         this.data = res.data.data;
         //  判断书是否在书架上若不再
-       if(this.data.length == 0) {
-          this.isInShelf = false
-       }
-       else{
-         this.isInShelf = true
-       }
-         
-          
+        if (this.data.length == 0) {
+          this.isInShelf = false;
+        } else {
+          this.isInShelf = true;
+        }
+
         console.log("是否在书架上", this.isInShelf);
       });
     },
@@ -106,8 +104,8 @@ export default {
       const fileName = this.fileName;
       const openId = this.openId;
       // 防止this指向转移
-      const vue=this
-      
+      const vue = this;
+
       if (vue.isInShelf) {
         // 弹出对话框
         wx.showModal({
@@ -115,7 +113,15 @@ export default {
           content: `确定将${vue.detail.title}移出书架`,
           success(res) {
             if (res.confirm) {
-              removeFromShelf(fileName, openId);
+              removeFromShelf({ fileName, openId }).then(res => {
+                if (res.status == 200) {
+                  wx.showToast({
+                    title: "移出书架成功成功",
+                    icon: "success",
+                    duration: 1000
+                  });
+                }
+              });
               vue.isInShelf = false;
               console.log("用户点击确定");
             } else if (res.cancel) {
@@ -130,7 +136,16 @@ export default {
           content: `确定将${vue.detail.title}添加至书架`,
           success(res) {
             if (res.confirm) {
-              addOnShelf(fileName, openId);
+              addOnShelf({ fileName, openId }).then(res=>{
+                if(res.status==200)
+                {
+                  wx.showToast({
+                    title: "加入书架成功成功",
+                    icon: "success",
+                    duration: 1000
+                  });
+                }
+              })
               vue.isInShelf = true;
               console.log("用户点击确定");
             } else if (res.cancel) {

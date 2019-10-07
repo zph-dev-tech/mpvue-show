@@ -104,13 +104,13 @@ export function showLoading(){
 export function hideLoading(){
     mpvue.hideLoading()
 }
-// shezhiyemianbiaoti
-export function setNavigationBar({ title }) {
-    const wx = () => {
-      mpvue.setNavigationBarTitle({ title })
-    }
-    const my = () => {
-      mpvue.setNavigationBar({ title })
-    }
-    adapter({ wx, my })
+// 动态设置页面标题
+export function setNavigationBar(param) {
+    wx.setNavigationBarTitle({
+        title: param
+      })
+    // const my = () => {
+    //   mpvue.setNavigationBar({ title })
+    // }
+    // adapter({ wx, my })
   }

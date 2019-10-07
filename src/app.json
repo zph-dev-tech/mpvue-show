@@ -2,7 +2,13 @@
   "pages": [
     "pages/index/main",
     "pages/bookDetail/main",
-    "pages/search/main"
+    "pages/search/main",
+    "pages/categoryBookList/main",
+    "pages/publisherBookList/main",
+    "pages/authorBookList/main",
+    "pages/categoryList/main",
+    "pages/bookList/main",
+    "pages/shelf/main"
    
   ],
   "window": {

@@ -16,8 +16,17 @@
 </template>
 
 <script>
-import ImageView from "../base/ImageView.vue";
+import ImageView from "../../components/base/ImageView";
+import  {getBookList} from '../../api/index.js';
 export default {
+    data() {
+        return {
+            param: {},
+            page:1,
+            category:'',
+            //bookList:[]
+        }
+    },
   components: {
     ImageView
   },
@@ -87,8 +96,51 @@ export default {
   },
   methods: {
       onBookClick(item){
-          this.$emit('onBookClick',item)
+         this.$router.push({
+             path:'/pages/bookDetail/main',
+             query:{
+                 fileName:item.fileName
+             }
+         })
       }
+  },
+  mounted() {
+      this.category=this.$route.query.category
+       const category=this.$route.query.category
+       getBookList({category:category}).then(res=>{
+           console.log('首页-cateList-BookList',res);
+           this.data=res.data.data
+           
+       })
+
+      
+  },
+     //   到达底部时加载新数据
+  onReachBottom() {
+      console.log('开始了吗');  
+      this.page++;
+      console.log('加加了吗');
+      getBookList({
+        category: this.category,
+        openId: this.openId,
+        page: this.page
+      }).then(res => {
+           console.log('执行了吗',res);
+        const book=res.data.data.book;
+        if(book.length>0){
+            this.data.push(...book);
+        }
+        else{
+            wx.showToast({
+            title: '没有更多数据了',
+            // icon: 'success',
+            duration: 2000
+          })
+            return
+        } 
+      });
+    // }
+    console.log("bottom...",this.page,this.data);
   },
 };
 </script>
