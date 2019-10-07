@@ -5,7 +5,7 @@
       <van-rate
         :value="rateValue"
         :size="25"
-        color="#1D89EE"
+        color="#FFCC00"
         void-color="#DEE0E2"
         void-icon="star"
         @change="onRateChange"

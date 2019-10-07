@@ -8,7 +8,10 @@
     "pages/authorBookList/main",
     "pages/categoryList/main",
     "pages/bookList/main",
-    "pages/shelf/main"
+    "pages/shelf/main",
+    "pages/webview/main"
+    
+    
    
   ],
   "window": {

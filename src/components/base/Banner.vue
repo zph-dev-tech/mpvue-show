@@ -1,5 +1,5 @@
 <template>
-  <div class="Banner" @click="onClick" :style="{ backgroundImage: bgurl}">
+  <div class="Banner" @click="onBannerClick" :style="{ backgroundImage: bgurl}">
     <div class="title">{{title}}</div>
     <div class="actionButton">{{subTitle}}</div>
   </div>
@@ -31,8 +31,10 @@ export default {
     }
   },
   methods: {
-    oncClick() {
-      this.$emit("onClick");
+    onBannerClick() {
+      console.log('bannerCom-----');
+      
+      this.$emit("onBannerClick");
     }
   }
 };

@@ -6,7 +6,7 @@
         <van-rate
           :value="rankAvg"
           :size="16"
-          color="#717882"
+          color="#FFCC00"
           void-color="#DEE0E2"
           void-icon="star"
         ></van-rate>

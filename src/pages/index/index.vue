@@ -20,9 +20,7 @@
     ></ImageView>-->
     <!-- banner组建 -->
     <Banner
-    :title="title"
-    :img="img"
-    :subTitle="subTitle"
+    @onBannerClick="onBannerClick"
     ></Banner>
 <!--  推荐图书 -->
 <recomend
@@ -647,9 +645,18 @@ export default {
     this.$router.push({
       path:'/pages/shelf/main',
     })
-  }
+  },
+  // 跳转网页
+  onBannerClick(){
+    console.log('onBannerClick');
+    
+    this.$router.push({
+      path:'/pages/webview/main'
+    })
+  },
   
   },
+  
 
   created () {
     // let app = getApp()
