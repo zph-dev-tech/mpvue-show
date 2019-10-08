@@ -18,9 +18,7 @@
       v-if=" historySearchWords.length>0&&!isShowList"
     ></tagGroup>
     <!-- 分类 -->
-    <category 
-    
-    @onCategoryItemClick="categorySearch" :title="categoryText" v-if="categoryText"></category>
+    <category @onCategoryItemClick="categorySearch" :title="categoryText" v-if="categoryText"></category>
     <!-- 作者 -->
     <category
       :title="author"
@@ -38,11 +36,7 @@
       v-if="publisher"
     ></category>
 
-    <bookList 
-    v-if="isShowList" 
-    :data="lists"
-    @onBookClick="onBookClick"
-    ></bookList>
+    <bookList v-if="isShowList" :data="lists" @onBookClick="onBookClick"></bookList>
   </div>
 </template>
 
@@ -52,7 +46,11 @@ import SearchBar from "../../components/SearchBar.vue";
 import category from "../../components/seacrch/category.vue";
 import bookList from "../../components/seacrch/bookList.vue";
 
-import { searchKeyWord, getHotSearchWords,getBookList } from "../../api/index.js";
+import {
+  searchKeyWord,
+  getHotSearchWords,
+  getBookList
+} from "../../api/index.js";
 import { getStorageSync, setStorageSync } from "../../api/wechat.js";
 export default {
   computed: {
@@ -64,7 +62,7 @@ export default {
       if (this.bookList == 0) {
         return {};
       } else {
-        return this.bookList ;
+        return this.bookList;
       }
     },
     author() {
@@ -121,7 +119,7 @@ export default {
       //   publisher:'',
       openId: "",
       page: 1,
-      keyword:''
+      keyword: ""
     };
   },
   methods: {
@@ -144,14 +142,14 @@ export default {
       searchKeyWord(keyWords).then(res => {
         console.log("搜索关键字返回的数据", res);
         this.keyWordBackData = res.data.data;
-        const book=this.keyWordBackData.book;
+        const book = this.keyWordBackData.book;
         console.log("keyWordBackData", this.keyWordBackData);
         this.bookList.push(...book);
       });
     },
     // 输入并搜索
     oc(searchWords) {
-        this.keyword=searchWords;
+      this.keyword = searchWords;
       if (!searchWords || searchWords.trim().length === 0) {
         //   搜索栏删除文字时数据要清空
         // this.bookList = [];
@@ -201,7 +199,12 @@ export default {
     // onTagClick() {},
     // onBtnClick() {},
     // 热词搜索
-    hotSearch() {},
+    hotSearch(item) {
+      this.searchKeyWord({
+        keyword: item,
+        openId: this.openId
+      });
+    },
     // 换一批
     change() {
       getHotSearchWords().then(res => {
@@ -233,36 +236,36 @@ export default {
 
     // unchange??
     categorySearch() {
-        this.$router.push({
-            path:'/pages/categoryBookList/main',
-            query:{
-                category:this.categoryText
-            }
-        })
+      this.$router.push({
+        path: "/pages/categoryBookList/main",
+        query: {
+          category: this.categoryText
+        }
+      });
     },
     authorSearch() {
       this.$router.push({
-            path:'/pages/authorBookList/main',
-            query:{
-                author:this.author
-            }
-        })
+        path: "/pages/authorBookList/main",
+        query: {
+          author: this.author
+        }
+      });
     },
     publisherSearch() {
       this.$router.push({
-            path:'/pages/publisherBookList/main',
-            query:{
-                publisher:this.publisher
-            }
-        })
+        path: "/pages/publisherBookList/main",
+        query: {
+          publisher: this.publisher
+        }
+      });
     },
     // 点击图书详情
-    onBookClick(book){
-        console.log("book",book);
-        this.$router.push({
-          path:"/pages/bookDetail/main",
-          query:{fileName:book.fileName}
-        }) 
+    onBookClick(book) {
+      console.log("book", book);
+      this.$router.push({
+        path: "/pages/bookDetail/main",
+        query: { fileName: book.fileName }
+      });
     }
   },
   //   页面滚动时失去焦点否则会出问题
@@ -273,44 +276,38 @@ export default {
   },
   //   到达底部时加载新数据
   onReachBottom() {
-      console.log('开始了吗',this.bookList,bookList.length>0);
-      
-    // if (bookList&&bookList.length>0) {
-        
-        
-      this.page++;
-      console.log('加加了吗');
-      searchKeyWord({
-        keyword: this.keyword,
-        openId: this.openId,
-        page: this.page
-       
-        
-      }).then(res => {
+    console.log("开始了吗", this.bookList, bookList.length > 0);
 
-           console.log('执行了吗');
-        this.keyWordBackData = res.data.data;
-        const book=this.keyWordBackData.book;
-        
-        
-        if(book.length>0){
-            this.bookList.push(...book);
-        }
-        else{
-            wx.showToast({
-            title: '没有更多数据了',
-            // icon: 'success',
-            duration: 2000
-          })
-            return
-        }
-        
-      });
+    // if (bookList&&bookList.length>0) {
+
+    this.page++;
+    console.log("加加了吗");
+    searchKeyWord({
+      keyword: this.keyword,
+      openId: this.openId,
+      page: this.page
+    }).then(res => {
+      console.log("执行了吗");
+      this.keyWordBackData = res.data.data;
+      const book = this.keyWordBackData.book;
+
+      if (book.length > 0) {
+        this.bookList.push(...book);
+      } else {
+        wx.showToast({
+          title: "没有更多数据了",
+          // icon: 'success',
+          duration: 2000
+        });
+        return;
+      }
+    });
     // }
-    console.log("bottom...",this.page,this.bookList);
+    console.log("bottom...", this.page, this.bookList);
   },
 
   mounted() {
+    this.onClearClick()
     this.openId = getStorageSync("openId");
     this.getHotSearchWords();
     this.historySearchWords = getStorageSync("historySearchWords");
