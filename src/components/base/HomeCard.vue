@@ -1,5 +1,5 @@
 <template>
-  <div class="HomeCard" >
+  <div class="HomeCard" @click="testhomecard">
     <div class="card-tab">
       <div class="homeCardInner">
         <div class="userAvatar">
@@ -77,6 +77,10 @@ export default {
       test(){
         console.log(this.nickName,this.avatarUrl);
       },
+      testhomecard(){
+        console.log('testhomecard');
+        
+      },
     //   跳转书架列表
    onShelfClick() {
      this.$emit('onShelfClick')
@@ -111,7 +115,7 @@ export default {
 <style lang="less" scoped>
 .HomeCard {
   margin-left: 20px;
-  margin-top: 37px;
+  margin-top: 20px;
 }
 .card-tab {
   position: relative;

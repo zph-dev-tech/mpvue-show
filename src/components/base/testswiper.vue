@@ -1,6 +1,6 @@
 <template>
   <div class="swiper-com">
-    <swiper
+    <!-- <swiper
       class="swiper"
       :indicator-dots="indicatorDots"
       :autoplay="autoplay"
@@ -20,39 +20,39 @@
           </div>
         </swiper-item>
       </block>
-    </swiper>
-    <div class="playBtn" @click="onPlayBtnClick">
+    </swiper>-->
+    <!-- <div class="playBtn">
       <van-icon name="play-circle-o" color="#d4d574" size="40px" />
-    </div>
-    <!-- <div class="test" @click="test"></div> -->
+    </div> -->
+    <div class="test" @click="test"></div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    images: {
-      type: Array
-    }
-  },
-  data() {
-    return {
-      indicatorDots: true,
-      autoplay: true,
-      interval: 3000,
-      duration: 500,
-      circular: true
-    }
-  },
+//   props: {
+//     images: {
+//       type: Array
+//     }
+//   },
+//   data() {
+//     return {
+//       indicatorDots: true,
+//       autoplay: true,
+//       interval: 3000,
+//       duration: 500,
+//       circular: true
+//     }
+//   },
   methods: {
     test() {
       console.log("test=------------------------------");
     },
-    onPlayBtnClick() {
-      console.log("swiper-onPlayBtnClick");
+    // onPlayBtnClick() {
+    //   console.log("swiper-onPlayBtnClick");
 
-      this.$emit("onPlayBtnClick");
-    }
+    //   this.emit("onPlayBtnClick");
+    // }
   }
 }
 </script>

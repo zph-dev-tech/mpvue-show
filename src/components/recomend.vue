@@ -189,7 +189,7 @@ export default {
     .bookRow-free {
       display: flex;
       justify-content: flex-start;
-      margin-bottom: 12px;
+      // margin-bottom: 12px;
       .bookWrap-free {
         margin-right: 26.5px;
         display: flex;

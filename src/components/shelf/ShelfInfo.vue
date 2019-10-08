@@ -1,5 +1,5 @@
 <template>
-  <div class="user-info-wrapper">
+  <div class="user-info-wrapper" @click="test">
     <div class="user-info">
       <div class="user-nick-name">{{userInfo.nickName}}</div>
       <div class="user-read-time">您已经加入文云{{readDay}}天</div>
@@ -19,7 +19,13 @@
       num: Number,
       readDay: Number,
       userInfo: Object
-    }
+    },
+    methods: {
+      test(){
+        console.log('sheltest');
+        
+      }
+    },
   }
 </script>
 
