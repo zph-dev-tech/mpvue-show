@@ -121,6 +121,8 @@ export default {
     display: flex;
     align-items: center;
     box-sizing: border-box;
+    
+    box-shadow: 0 2rpx 4rpx rgba(0, 0, 0, .3);
     .search {
       display: flex;
       align-items: center;

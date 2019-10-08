@@ -5,6 +5,8 @@
 ## 3.npm run dev 
 ## 4.使用微信小程序调试工具打开src/dist/wx文件夹即可浏览效果
 ## 5.项目主要工具 mpvue+fly.io+vantweappUI+less+mpvue-router-patch
+## 6.小程序搜索功能只能搜索英文(只有英文数据)
+## 7.长列表功能在搜索中检测
 
 
 

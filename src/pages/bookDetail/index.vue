@@ -1,5 +1,8 @@
 <template>
   <div>
+    <detailSkeleton
+    v-if="isShowSkeleton"
+    ></detailSkeleton>
     <detail :book="detail"></detail>
 
     <detailStat :readers="readers" :readerNum="readerNum" :rankNum="rankNum" :rankAvg="rankAvg"></detailStat>
@@ -18,6 +21,7 @@ import detailContents from "../../components/bookDetail/detailContents.vue";
 import detailRate from "../../components/bookDetail/detailRate.vue";
 import detailStat from "../../components/bookDetail/detailStat.vue";
 import detailBottom from "../../components/bookDetail/detailBottom.vue";
+import detailSkeleton from '../../components/skeleton/detailSkeleton.vue'
 
 import {
   getDetail,
@@ -33,7 +37,8 @@ export default {
     detailContents,
     detailRate,
     detailStat,
-    detailBottom
+    detailBottom,
+    detailSkeleton
   },
   data() {
     return {
@@ -41,13 +46,14 @@ export default {
       openId: "",
       detail: {},
       bookContents: {},
-      rank: 4,
+      rank: 0,
       readers: [],
       readerNum: 0,
       rankNum: 0,
       rankAvg: 0,
       isInShelf: false,
       book: {},
+      isShowSkeleton:true,
       // 存储状态data
       data: []
     };
@@ -64,6 +70,8 @@ export default {
         this.rankNum = this.detail.rankNum;
         this.rankAvg = this.detail.rankAvg;
         console.log("detail返回数据", this.detail);
+        //  骨架屏消失
+        this.isShowSkeleton=false
       });
     },
     // 获取目录章节
@@ -173,6 +181,16 @@ export default {
     this.getBookContents();
     //console.log("是否拿到book", this);
     this.getBookStorage();
+  },
+  // 关闭页面时清空数据
+  onShow(){
+this.isShowSkeleton=true
+this.rankNum=0
+
+  },
+  onUnload(){
+this.detail={}
+
   }
 };
 </script>

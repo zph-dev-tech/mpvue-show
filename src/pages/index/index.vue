@@ -67,6 +67,10 @@
 <auth
 @getUserInfo="init"
 v-if="!isAuth"></auth>
+<!-- 首页骨架图 -->
+<indexSkeleton 
+v-if="isShowSkeleton"
+></indexSkeleton>
 
 <!-- <button open-type="contact">进入客服会话</button>
 <button open-type="getUserInfo" lang="zh_CN" @getuserinfo="onGotUserInfo">获取用户信息</button> -->
@@ -82,6 +86,7 @@ import HomeCard from '../../components/base/HomeCard.vue'
 import Banner from '../../components/base/Banner.vue'
 import recomend from '../../components/recomend.vue'
 import auth from '../../components/base/auth.vue'
+import indexSkeleton from '../../components/skeleton/indexSkeleton.vue'
 // import {getData} from '../../api/index.js'
 import {getHomeData, getRecommend,getFreeRead,getHotBook,getAllCategory} from '../../api/index.js'
 import {
@@ -111,9 +116,17 @@ export default {
     //     nickName:this.userInfo.nickName
     //   }
     // }
+    isShowSkeleton(){
+      if(isShowSkeleton)
+      {
+return this.isShowSkeleton
+      }
+      
+    }
   },
   mounted() {
     this.init()
+    
     // this.getUserSetting()
     // 获取首页数据
      //this.getdata()
@@ -122,7 +135,7 @@ export default {
     return {
       isAuth:true,
       hotSearch:{},
-     
+     isShowSkeleton:false,
       recomend:[],
       freeRead:[],
       hotBook:[],
@@ -463,7 +476,8 @@ export default {
   HomeCard,
   Banner,
   recomend,
-  auth
+  auth,
+  indexSkeleton
   },
 
   methods: {
@@ -523,8 +537,12 @@ export default {
             // getHomeData(openId)
               
             }
+            // 骨架图消失
+            this.isShowSkeleton=false;
+     console.log('endtagtagtag',this.isShowSkeleton);   
             // 隐藏loading
             hideLoading()
+            
         }
       )
       // 隐藏授权面板
@@ -568,7 +586,8 @@ export default {
          num:shelfCount, 
          userInfo:userInfo  
      }
-      console.log('homecard的数据----',this.HomeCard.userInfo);    
+      console.log('homecard的数据----',this.HomeCard.userInfo);
+        
     })   
    },
   //  获取更多图书
@@ -656,13 +675,24 @@ export default {
   },
   
   },
-  
+  onLoad(){
+    this.isShowSkeleton=true;
+    console.log('tagtagtag',this.isShowSkeleton);
+    
+  },
+  onReady (){
+   
+  },
 
   created () {
     // let app = getApp()
+    
   }
 }
 </script>
 <style lang="less" scoped>
+.home {
+  padding-bottom: 10px;
+}
 </style>
 
